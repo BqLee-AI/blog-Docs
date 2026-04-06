@@ -13,7 +13,8 @@
 2. BE 进度：已完成 / 进行中 / 阻塞
 3. 跨端阻塞：接口、数据结构、联调环境
 4. 新增风险：严重度、影响范围、应对策略
-5. 下周行动：按优先级排序
+5. 候选版本状态：未冻结 / 已冻结 / 验证中 / 已发布
+6. 下一批行动：按优先级排序
 
 ## 状态定义
 
@@ -26,7 +27,7 @@
 ## 记录模板
 
 ```markdown
-## YYYY-MM-DD 同步
+## YYYY-MM-DD Sync
 
 ### FE
 - FE-xxx: doing - 描述
@@ -39,6 +40,11 @@
 
 ### Risks
 - [P0/P1/P2] xxx
+
+### Release
+- status: none / frozen / verifying / released
+- target: tag or release branch
+- note: xxx
 
 ### Next
 1. xxx
