@@ -1,0 +1,54 @@
+schema: spec-driven
+
+context: |
+  Repository: blog-Docs
+  Role: control-plane repository for the BqLee AI project.
+
+  This repository governs how blog-FE and blog-BE collaborate.
+  It stores stable rules, boundaries, SOPs, templates, and validation expectations.
+  It should not become a knowledge dump or a timeline of transient project status.
+
+  Documentation priorities:
+  - Prefer long-lived rules over stage-specific narration.
+  - Prefer boundaries, contracts, and acceptance criteria over progress reports.
+  - Time-sensitive status, weekly updates, and release snapshots should live in external sync records or copied templates, not in high-weight rule documents.
+  - Avoid embedding concrete issue numbers, PR numbers, dates, or temporary owners in stable docs unless strictly necessary.
+
+  Core control-plane layers:
+  - Prompt layer: clarify task goal, scope, non-goals, and acceptance.
+  - Context layer: load only authoritative and fresh materials.
+  - Harness layer: require verifiable evidence before merge or release.
+
+  Repository structure:
+  - docs/01-control-plane: governance and stable scope/boundary rules
+  - docs/02-workflow: issue/spec/release/sync SOPs
+  - docs/03-harness: validation and orchestration loop
+  - docs/04-standards: writing and agent standards
+  - templates/: reusable execution templates
+
+  Stable engineering rules:
+  - Every meaningful change should trace back to a spec and issue.
+  - No PR should be considered complete without validation evidence.
+  - Release is cut from a frozen commit on develop via tag or release/*, not by relying on develop -> main merge.
+  - Documents in this repository should remain concise, operational, and durable.
+
+rules:
+  proposal:
+    - Keep proposals focused on stable process or contract changes, not temporary status reporting.
+    - Always include scope, non-goals, affected repositories, and verification impact.
+    - Avoid week-based planning, milestone narration, or dated status unless the artifact is explicitly a transient sync record.
+    - If a proposal changes workflow or release policy, include migration and rollback notes.
+  design:
+    - Keep design focused on document structure, artifact mapping, migration, and validation flow.
+    - Avoid long historical narration; explain only the implementation decisions needed to apply the change.
+    - If the design introduces operational state, specify where that state should live outside stable rule documents.
+  specs:
+    - Specs must define boundaries, contracts, acceptance criteria, risks, and rollback path.
+    - Specs should separate durable rules from temporary execution notes.
+    - Use repository-relative references when pointing to docs, templates, or standards.
+    - Prefer system behavior and interface language over owner-based task descriptions.
+  tasks:
+    - Break work into independently verifiable chunks.
+    - Each task must state input documents, output artifact, acceptance check, and backwrite target.
+    - Prefer FE/BE/control-plane boundary-based decomposition instead of page-by-page assignment.
+    - Do not encode temporary project status into task templates.
