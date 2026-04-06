@@ -30,15 +30,14 @@
 │   │   ├── project-dashboard.md
 │   │   ├── spec-issue-test-flow.md
 │   │   └── progress-sync-protocol.md
-│   │   ├── pm-product-governance-playbook.md
-│   │   ├── issue-dispatch-mechanism.md
-│   │   └── iteration-optimization-loop.md
-│   │   ├── stage-review-policy.md
+│   │   ├── change-intake-and-escalation.md
+│   │   ├── openspec-governance-baseline.md
+│   │   ├── pr-merge-gate-spec.md
 │   │   ├── pr-review-sop.md
 │   │   └── task-release-and-sync-sop.md
 │   ├── 03-harness
 │   │   └── harness-closed-loop.md
-│   │   └── agent-orchestration-matrix.md
+│   │   └── harness-gate-baseline.md
 │   └── 04-standards
 │       └── agents-md-standard.md
 └── templates
