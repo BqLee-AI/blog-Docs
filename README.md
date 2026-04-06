@@ -22,6 +22,7 @@
 ├── AGENTS.md
 ├── docs
 │   ├── 01-control-plane
+│   │   └── control-plane-handbook.md
 │   │   └── ai-native-governance.md
 │   │   └── mvp-scope.md
 │   ├── 02-workflow
@@ -83,6 +84,7 @@
 
 ## 高权重真源
 
+- `docs/01-control-plane/control-plane-handbook.md`
 - `docs/01-control-plane/mvp-scope.md`
 - `docs/01-control-plane/ai-native-governance.md`
 - `docs/02-workflow/release-strategy.md`
