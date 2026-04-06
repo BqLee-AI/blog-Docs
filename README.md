@@ -5,8 +5,9 @@
 - 管规范（Rules / AGENTS / SOP）
 - 管边界（模块职责、改动范围、验收口径）
 - 管闭环（Spec -> Issue -> PR -> Test -> Release -> 回写）
+- 管高权重真源（scope freeze / release strategy / contract / stable SOP）
 
-它不是知识堆放仓库，而是指导 `blog-FE` 和 `blog-BE` 的工程执行标准。
+它不是知识堆放仓库，也不应长期堆积阶段性状态，而是指导 `blog-FE` 和 `blog-BE` 的稳定工程标准。
 
 ## 仓库目标
 
@@ -22,7 +23,10 @@
 ├── docs
 │   ├── 01-control-plane
 │   │   └── ai-native-governance.md
+│   │   └── mvp-scope.md
 │   ├── 02-workflow
+│   │   ├── release-strategy.md
+│   │   ├── project-dashboard.md
 │   │   ├── spec-issue-test-flow.md
 │   │   └── progress-sync-protocol.md
 │   │   ├── pm-product-governance-playbook.md
@@ -54,6 +58,13 @@
 
 `Spec -> Issue -> Branch -> PR -> Harness Validate -> Merge -> Doc Backwrite`
 
+发布策略原则：
+
+- `develop` 是持续开发分支
+- 发版不依赖 `develop -> main` 合并
+- 发版以 `develop` 的冻结 commit 为准，通过 `tag` 或 `release/*` 分支完成
+- 时间敏感的进度、风险、候选版状态不应写入高权重规则正文，应放在外部同步记录或临时运行面板
+
 ## 推荐工具组合
 
 - Spec 管理：`OpenSpec`（或仓库内 markdown spec + 模板）
@@ -68,11 +79,22 @@
 - 每个功能开发必须关联 Spec 与 Issue
 - 没有 Harness 验证记录的 PR 不允许合并
 - 发布后必须回写文档（进度、风险、经验）
+- 发版前必须冻结范围、记录候选版本、保留回滚口径
+
+## 高权重真源
+
+- `docs/01-control-plane/mvp-scope.md`
+- `docs/01-control-plane/ai-native-governance.md`
+- `docs/02-workflow/release-strategy.md`
+- `docs/02-workflow/progress-sync-protocol.md`
+- `docs/02-workflow/task-release-and-sync-sop.md`
 
 ## 快速开始
 
 1. 先读 `AGENTS.md`
-2. 按 `templates/spec-template.md` 写功能 Spec
-3. 按 `templates/issue-template.md` 拆 Issue
-4. 开发完成后按 `templates/harness-checklist.md` 验证
-5. 更新 `docs/02-workflow/progress-sync-protocol.md` 约定的进度记录
+2. 先确认 `docs/01-control-plane/mvp-scope.md` 的范围冻结规则
+3. 按 `templates/spec-template.md` 写功能 Spec
+4. 按 `templates/issue-template.md` 拆 Issue
+5. 开发完成后按 `templates/harness-checklist.md` 验证
+6. 发版前核对 `docs/02-workflow/release-strategy.md`
+7. 如需记录运行状态，按模板生成当期同步记录，不要长期改写高权重规则正文
