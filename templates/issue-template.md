@@ -10,6 +10,19 @@
 - [ ] L1 必须 OpenSpec
 - [ ] L2 必须 BLOCKER 升级
 
+## 发布标签（必填）
+- [ ] `level:l0-direct` / `level:l1-openspec` / `level:l2-blocker`
+- [ ] `freeze:locked` / `freeze:change-request`
+- [ ] `status:ready` / `status:blocked` / `status:deferred` / `status:done`
+- [ ] 若纳入候选版本：`release:candidate`
+- [ ] 若启用阶段/批次标签（如 week/phase），按 `docs/runtime/` 当前阶段文档执行
+
+## 写法约束（防冗余 / 防过期）
+- [ ] `背景` 不超过 3 行，只写事实与约束，不写会议过程
+- [ ] `目标` 不超过 3 条，使用可验收表述
+- [ ] `DoD` 不超过 5 条，避免口号化描述
+- [ ] 不写具体日期、临时负责人、阶段口号（放到同步记录）
+
 ## 分级判定依据（勾选触发项）
 ### L0 自检（仅当以下全满足才可选 L0）
 - [ ] 改动仅在授权范围且符合冻结边界

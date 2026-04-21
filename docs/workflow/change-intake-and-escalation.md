@@ -78,4 +78,4 @@
 - Issue 模板：`templates/issue-template.md`
 - PR 模板：`templates/pr-template.md`
 - Harness 清单：`templates/harness-checklist.md`
-- 主流程：`docs/02-workflow/spec-issue-test-flow.md`
+- 主流程：`docs/workflow/spec-issue-test-flow.md`
