@@ -32,6 +32,25 @@
 - 优先级
 - 所属流程位置
 
+## 2.1 发布标签要求（Labels）
+
+发布相关 Issue / PR 必须打对应标签（若仓库尚未创建同名标签，先创建后再发布）：
+
+- `level:l0-direct` / `level:l1-openspec` / `level:l2-blocker`（三选一）
+- `freeze:locked` / `freeze:change-request`（二选一）
+- `status:ready` / `status:blocked` / `status:deferred` / `status:done`（四选一）
+- 纳入候选版本的项必须额外打 `release:candidate`
+- 如需阶段/批次标签（例如 week/phase），在 `docs/runtime/` 当前阶段文档中定义
+
+执行规则：
+
+- 进入 `Ready` 前，至少具备 `week + level + freeze + status` 四类标签。
+- 进入 `Ready` 前，至少具备 `level + freeze + status` 三类稳定标签。
+- 命中 L2 或 BLOCKER 时，30 分钟内补齐 `level:l2-blocker + status:blocked`。
+- 候选版本冻结后，发布清单中的项必须为 `release:candidate + freeze:locked`，且不得保留 `status:blocked`。
+- 标签用于索引和同步，不替代门禁与证据判定。
+- 同步记录需精简：只写变更结论与阻塞，不写长过程描述。
+
 ## 3. 任务同步流程
 
 ### 日同步（15 分钟）

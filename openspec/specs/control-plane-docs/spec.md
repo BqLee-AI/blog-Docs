@@ -1,29 +1,30 @@
-# control-plane-docs Specification
+# control-plane-docs 能力规范
 
-## Purpose
-Define how high-weight control-plane documents stay durable, authoritative, and free from transient project-state pollution.
-## Requirements
-### Requirement: Stable control-plane documents exclude transient project state
-High-weight control-plane documents MUST record durable rules, boundaries, contracts, acceptance criteria, and workflow constraints. They MUST NOT become a running log of temporary status, weekly plans, dated milestones, or short-lived ownership assignments.
+## 目的
+定义高权重控制面文档如何保持长期有效、权威，且不受临时项目状态污染。
 
-#### Scenario: Writing a governance document
-- **WHEN** an author updates a stable governance, workflow, or control-plane document
-- **THEN** the document MUST prioritize durable constraints over iteration-specific status
+## 要求
+### 要求：稳定控制面文档排除临时项目状态
+高权重控制面文档必须记录长期有效的规则、边界、契约、验收标准和工作流约束。不得成为临时状态、周计划、日期里程碑或短期所有权的运行日志。
 
-#### Scenario: Detecting transient content in a high-weight document
-- **WHEN** a document contains concrete weekly status, temporary owners, issue numbers, or dated progress notes
-- **THEN** that content MUST be removed or moved to a lower-weight sync record
+#### 场景：编写治理文档
+- **WHEN** 作者更新稳定的治理、工作流或控制面文档
+- **THEN** 文档必须优先记录长期约束，而非迭代状态
 
-### Requirement: Transient operational state is externalized from stable rule documents
-Operational state that changes frequently MUST live in copied templates, sync records, release notes, or other low-weight artifacts instead of the main body of stable rule documents.
+#### 场景：在高权重文档中发现临时内容
+- **WHEN** 文档包含具体的周状态、临时负责人、Issue 编号或日期进度记录
+- **THEN** 该内容必须被移除或迁移到低权重的同步记录中
 
-#### Scenario: Team needs a current status snapshot
-- **WHEN** the team needs to record current progress, blockers, candidate release state, or next actions
-- **THEN** the information MUST be placed in a sync record or runtime dashboard artifact rather than the stable rule source
+### 要求：临时运行态从稳定规则文档中外置
+频繁变化的运行态必须存放在复制的模板、同步记录、发版说明或其他低权重产物中，而非稳定规则文档正文。
 
-### Requirement: Control-plane documents define authoritative boundaries
-Control-plane documents MUST identify which repositories, templates, and rules are authoritative for governance, release, and validation decisions.
+#### 场景：团队需要当前状态快照
+- **WHEN** 团队需要记录当前进度、阻塞项、候选版本状态或下一步行动
+- **THEN** 信息必须放置在同步记录或运行态面板产物中，而非稳定规则源头
 
-#### Scenario: Agent chooses a source of truth
-- **WHEN** an agent or contributor needs to decide which material has highest authority
-- **THEN** the control-plane document set MUST point to the stable source of truth for that decision domain
+### 要求：控制面文档定义权威边界
+控制面文档必须明确哪些仓库、模板和规则是治理、发版和验证决策的权威来源。
+
+#### 场景：Agent 选择真源
+- **WHEN** Agent 或贡献者需要判断哪些材料具有最高权威性
+- **THEN** 控制面文档集必须指向该决策领域的稳定真源

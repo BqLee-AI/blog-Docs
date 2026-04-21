@@ -1,22 +1,22 @@
-## ADDED Requirements
+## 新增要求
 
-### Requirement: Governance rule changes use OpenSpec change artifacts
-Changes that alter governance rules, workflow constraints, release policy, validation gates, or documentation authority boundaries MUST be proposed through an OpenSpec change.
+### 要求：治理规则变更使用 OpenSpec change 产物
+影响治理规则、工作流约束、发版策略、验证门禁或文档权威边界的变更，必须通过 OpenSpec change 提出。
 
-#### Scenario: Updating a workflow rule
-- **WHEN** a contributor intends to change a control-plane workflow or rule with downstream impact on `blog-FE` or `blog-BE`
-- **THEN** the contributor MUST create an OpenSpec change before treating that rule as the new baseline
+#### 场景：更新工作流规则
+- **WHEN** 贡献者意图修改对 `blog-FE` 或 `blog-BE` 有下游影响的控制面工作流或规则
+- **THEN** 贡献者必须在将该规则视为新基线之前创建 OpenSpec change
 
-### Requirement: Governance changes define proposal, specs, and tasks
-Each governance change MUST describe why the change exists, what capability requirements it introduces or modifies, and how the work will be validated through tasks.
+### 要求：治理变更须包含讨论稿、规范和任务清单
+每项治理变更必须描述变更原因、引入或修改的能力要求，以及如何通过任务验证。
 
-#### Scenario: Creating a governance change
-- **WHEN** a contributor creates a new governance change
-- **THEN** the change MUST include proposal, specs, and tasks artifacts that can be validated and later archived
+#### 场景：创建治理变更
+- **WHEN** 贡献者创建新的治理变更
+- **THEN** 该变更必须包含 proposal、specs 和 tasks 产物，以便后续验证和归档
 
-### Requirement: Spec language remains durable and testable
-Governance specs MUST use durable requirement language and MUST describe behavior in a way that can be validated without depending on a specific week, milestone, or temporary team arrangement.
+### 要求：规范语言须长期有效且可验证
+治理规范必须使用长期有效的需求语言，且必须以可验证的方式描述行为，不得依赖特定的周、里程碑或临时团队安排。
 
-#### Scenario: Writing a new governance requirement
-- **WHEN** a contributor writes or modifies a governance requirement
-- **THEN** the requirement MUST use stable language and at least one testable scenario without relying on transient project timing
+#### 场景：编写新的治理要求
+- **WHEN** 贡献者编写或修改治理要求
+- **THEN** 该要求必须使用稳定语言并包含至少一个可验证场景，不得依赖临时项目时间节点

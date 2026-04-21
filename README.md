@@ -1,77 +1,88 @@
 # blog-Docs
 
-`blog-Docs` 是 BqLee AI 项目的**控制面仓库**：
+BqLee-AI 项目的**控制面仓库**——指导 `blog-FE` 和 `blog-BE` 的工程标准与推进节奏。
 
-- 管规范（Rules / AGENTS / SOP）
-- 管边界（模块职责、改动范围、验收口径）
-- 管闭环（Spec -> Issue -> PR -> Test -> Release -> 回写）
-- 管高权重真源（scope freeze / release strategy / contract / stable SOP）
+## 核心工作流
 
-它不是知识堆放仓库，也不应长期堆积阶段性状态，而是指导 `blog-FE` 和 `blog-BE` 的稳定工程标准。
+```
+PM 发起聚焦讨论（一次一件事）
+    ↓
+AI 帮忙收成决策 → 冻结到 spec / 契约
+    ↓
+从决策拆 Issue 下发到 FE/BE
+    ↓
+开发者执行 → PR 提供证据 → PM 对照 spec 验收
+    ↓
+合并后 AI 回写文档仓库（同步进度 + 发现问题 + 规划下一步）
+    ↓
+准备下一个聚焦讨论
+```
 
-## 仓库目标
-
-- 让前后端 Agent 在同一套规则下稳定协作
-- 让任务从“能写”升级到“可验证、可追踪、可回滚”
-- 让每次踩坑沉淀为可复用规范，而不是聊天记录
+完整示例见 [`docs/runtime/workflow-example.md`](docs/runtime/workflow-example.md)
 
 ## 目录结构
 
 ```text
 .
-├── AGENTS.md
-├── docs
-│   ├── 01-control-plane
-│   │   └── control-plane-handbook.md
-│   │   └── ai-native-governance.md
-│   │   └── mvp-scope.md
-│   ├── 02-workflow
-│   │   ├── release-strategy.md
-│   │   ├── project-dashboard.md
+├── AGENTS.md                          ← Agent 行为入口（必读）
+├── docs/
+│   ├── control-plane/                 ← 红线：范围/契约/变更边界（不能随便改）
+│   │   ├── README.md
+│   │   ├── control-plane-handbook.md  # L0 治理主真源
+│   │   ├── ai-native-governance.md    # L1 三层控制面总则
+│   │   └── mvp-scope.md               # L1 MVP 范围冻结
+│   ├── workflow/                      ← 规则：怎么推进任务、审核 PR、发版
 │   │   ├── spec-issue-test-flow.md
-│   │   └── progress-sync-protocol.md
 │   │   ├── change-intake-and-escalation.md
-│   │   ├── openspec-governance-baseline.md
 │   │   ├── pr-merge-gate-spec.md
 │   │   ├── pr-review-sop.md
-│   │   └── task-release-and-sync-sop.md
-│   ├── 03-harness
-│   │   └── harness-closed-loop.md
-│   │   └── harness-gate-baseline.md
-│   └── 04-standards
-│       └── agents-md-standard.md
-└── templates
+│   │   ├── release-strategy.md
+│   │   ├── task-release-and-sync-sop.md
+│   │   ├── progress-sync-protocol.md
+│   │   ├── openspec-governance-baseline.md
+│   │   └── workflow-example.md        # 端到端工作流示例
+│   ├── harness/                       ← 验收：怎么验证是否合规
+│   │   ├── README.md
+│   │   ├── harness-closed-loop.md     # Harness 四步闭环
+│   │   └── harness-gate-baseline.md   # 合并门禁 + 发版门禁
+│   ├── standards/                     ← 标准：怎么写 AGENTS / 仓库怎么接入
+│   │   ├── agents-md-standard.md
+│   │   └── fe-be-adoption-gate.md
+│   └── runtime/                       ← 运行态：当前阶段、Issue 下发、风险台账（可高频更新）
+│       ├── README.md
+│       ├── phase-current.md           # 当前阶段定义
+│       ├── issue-dispatch.md          # 本阶段 Issue 清单
+│       └── risk-register.md           # 风险台账
+├── openspec/                          ← OpenSpec 变更管理
+│   ├── config.yaml
+│   ├── specs/                         # L0 冻结 spec
+│   └── changes/                       # 变更过程（进行中 + 归档）
+└── templates/                         ← 可复用模板
     ├── spec-template.md
     ├── issue-template.md
+    ├── pr-template.md
     └── harness-checklist.md
 ```
 
-## 采用的开发范式（AI Native Engineering）
+## 固定层 vs 运行层
 
-基于你指定的方法论，落地为三层控制面：
+| 层 | 目录 | 特点 | 可变性 |
+|----|------|------|--------|
+| 固定层 | `control-plane/` `workflow/` `harness/` `standards/` | 长期规则、红线、门禁 | 只能通过 OpenSpec 变更 |
+| 运行层 | `runtime/` | 阶段推进、Issue 清单、风险台账 | 可高频更新 |
 
-1. `Prompt` 层：说清任务目标与边界
-2. `Context` 层：给对材料，控制权重，减少污染
-3. `Harness` 层：让执行可观察、可验证、可收敛
+运行层文档可更新状态，但**不得改写固定层规则定义**。
 
-对应工程闭环：
+## 高权重真源
 
-`Spec -> Issue -> Branch -> PR -> Harness Validate -> Merge -> Doc Backwrite`
+- `docs/control-plane/control-plane-handbook.md`（L0）
+- `docs/control-plane/mvp-scope.md`（L1）
+- `docs/control-plane/ai-native-governance.md`（L1）
+- `docs/workflow/release-strategy.md`（L1）
+- `docs/workflow/progress-sync-protocol.md`（L2）
+- `docs/workflow/task-release-and-sync-sop.md`（L2）
 
-发布策略原则：
-
-- `develop` 是持续开发分支
-- 发版不依赖 `develop -> main` 合并
-- 发版以 `develop` 的冻结 commit 为准，通过 `tag` 或 `release/*` 分支完成
-- 时间敏感的进度、风险、候选版状态不应写入高权重规则正文，应放在外部同步记录或临时运行面板
-
-## 推荐工具组合
-
-- Spec 管理：`OpenSpec`（或仓库内 markdown spec + 模板）
-- 任务追踪：GitHub Issues / Milestones / Labels
-- 执行编排：`gh` CLI + Agent CLI
-- 验证闭环：单测 + 构建 + Playwright + PR 检查清单
-- 规范沉淀：`AGENTS.md` + 本仓库模板
+冲突裁决：L0 > OpenSpec 已接受变更 > L1/L2 专项规则 > 运行态同步记录
 
 ## 对前后端仓库的约束
 
@@ -81,21 +92,20 @@
 - 发布后必须回写文档（进度、风险、经验）
 - 发版前必须冻结范围、记录候选版本、保留回滚口径
 
-## 高权重真源
+## 发布策略
 
-- `docs/01-control-plane/control-plane-handbook.md`
-- `docs/01-control-plane/mvp-scope.md`
-- `docs/01-control-plane/ai-native-governance.md`
-- `docs/02-workflow/release-strategy.md`
-- `docs/02-workflow/progress-sync-protocol.md`
-- `docs/02-workflow/task-release-and-sync-sop.md`
+- `develop` 是持续开发分支
+- 发版不依赖 `develop -> main` 合并
+- 发版以 `develop` 的冻结 commit 为准，通过 `tag` 或 `release/*` 分支完成
+- 时间敏感状态不应写入高权重规则正文，应放在 `docs/runtime/`
 
 ## 快速开始
 
 1. 先读 `AGENTS.md`
-2. 先确认 `docs/01-control-plane/mvp-scope.md` 的范围冻结规则
+2. 确认 `docs/control-plane/mvp-scope.md` 的范围冻结规则
 3. 按 `templates/spec-template.md` 写功能 Spec
 4. 按 `templates/issue-template.md` 拆 Issue
 5. 开发完成后按 `templates/harness-checklist.md` 验证
-6. 发版前核对 `docs/02-workflow/release-strategy.md`
-7. 如需记录运行状态，按模板生成当期同步记录，不要长期改写高权重规则正文
+6. PR 按 `templates/pr-template.md` 填写证据
+7. 发版前核对 `docs/workflow/release-strategy.md`
+8. 运行态信息写入 `docs/runtime/`，不要改写高权重规则正文
