@@ -68,7 +68,7 @@ AI 帮忙收成决策 → 冻结到 spec / 契约
 
 | 层 | 目录 | 特点 | 可变性 |
 |----|------|------|--------|
-| 固定层 | `control-plane/` `workflow/` `harness/` `standards/` | 长期规则、红线、门禁 | 只能通过 OpenSpec 变更 |
+| 固定层 | `control-plane/` `workflow/` `harness/` `standards/` | 长期规则、红线、门禁 | 变更需充分讨论并确认影响面，重大变更走 OpenSpec |
 | 运行层 | `runtime/` | 阶段推进、Issue 清单、风险台账 | 可高频更新 |
 
 运行层文档可更新状态，但**不得改写固定层规则定义**。
