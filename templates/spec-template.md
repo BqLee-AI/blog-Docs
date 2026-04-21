@@ -1,23 +1,23 @@
 # Spec 模板
 
-## 1. 背景
+## Purpose
+一段话说明这个 spec 管什么、不管什么。
 
-## 2. 目标
+## Requirements
 
-## 3. 范围
-- In Scope:
-- Out of Scope:
+### Requirement: <行为要求标题>
+<要求描述，使用 MUST/SHALL/MUST NOT 语义>
 
-## 4. 契约
-- API / 数据结构 / 错误语义
+#### Scenario: <场景名>
+- **GIVEN** <前置条件>
+- **WHEN** <触发动作>
+- **THEN** <期望结果>
 
-## 5. 验收标准
-- [ ]
+## Boundaries
+- In scope:
+- Out of scope:
 
-## 6. 风险与回滚
-- 风险:
-- 回滚:
-
-## 7. 关联 Issue
-- FE:
-- BE:
+## References
+- 上游 spec:
+- 受影响仓库:
+- 契约文件: contracts/openapi.yaml#<operationId>
