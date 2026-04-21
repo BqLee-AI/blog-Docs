@@ -1,23 +1,22 @@
 # PR 模板
 
+## 决策上下文
+- 为什么做：
+- 为什么是现在：
+- 明确不做：
+
 ## 变更摘要
 
 ## 关联真源
 - Issue:
 - Spec:
 - Contract/Rule:
+- 验收标准在：
 
-## 发布标签（必填）
-- Level Label: `level:l0-direct` / `level:l1-openspec` / `level:l2-blocker`
-- Freeze Label: `freeze:locked` / `freeze:change-request`
-- Status Label: `status:ready` / `status:blocked` / `status:deferred` / `status:done`
-- Candidate Label（纳入候选版本时）: `release:candidate`
-- Phase/Batch Label（如 week/phase，若启用）: 按 `docs/runtime/` 当前阶段文档执行
-
-## 写法约束（防冗余 / 防过期）
-- 变更摘要不超过 5 行，只写“改了什么 + 为什么”
-- 证据摘要不重复日志全文，只保留结论与定位
-- 不写阶段叙事、会议过程、临时分工
+## 发布标签
+- Level: `l0-direct` / `l1-openspec` / `l2-blocker`
+- Freeze: `freeze:locked` / `freeze:change-request`
+- Status: `status:ready` / `status:blocked` / `status:deferred`
 
 ## 冻结边界检查
 - [ ] 只修改授权范围内文件
@@ -25,33 +24,11 @@
 - [ ] 未破坏既定契约
 - [ ] 如涉及契约变更，已先更新文档真源
 
-## 合并门禁必填（不得留空）
-- Gate Spec: docs/workflow/pr-merge-gate-spec.md
-- 必需验证项状态: Build/Typecheck [PASS/FAIL/N/A] | Unit Test [PASS/FAIL/N/A] | Smoke [PASS/FAIL/N/A]
-- Blocker 状态: 未解决 BLOCKER 数量 = [0/非0]
-
-## Harness 验证证据（必填，逐项填写）
-### Build/Typecheck
-- Command:
-- Result: PASS | FAIL | N/A（原因）
-- Evidence:
-- Conclusion:
-
-### Unit Test
-- Command:
-- Result: PASS | FAIL | N/A（原因）
-- Evidence:
-- Conclusion:
-
-### Smoke
-- Command:
-- Result: PASS | FAIL | N/A（原因）
-- Evidence:
-- Conclusion:
-
-## 证据摘要（必填）
-- 关键日志/截图结论：
-- 证据链接或路径：
+## 内容验证
+- 变更文件在正确分层目录内：
+- 路径引用有效（无断链）：
+- L0/L1 规则变更已经充分讨论确认影响面（如适用）：
+- 新增 Spec 包含 Purpose/Requirements/Scenario/Boundaries/References（如适用）：
 
 ## 风险与回滚
 - 风险:
@@ -59,3 +36,4 @@
 
 ## 回写
 - [ ] 已更新必要文档（规则/模板/同步记录）
+- [ ] 如涉及 Issue 下发，已回写到 `docs/runtime/issue-dispatch.md`
