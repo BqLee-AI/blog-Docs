@@ -18,25 +18,27 @@
 - 先验证，后合并：影响边界或治理口径的改动，必须有可审计证据。
 - 先规范，后扩展：新增治理要求必须先进入 OpenSpec，再落入主文档。
 - 稳态文档去时效化：高权重文档禁止记录短期进度、临时分工、阶段口号。
+- 文档最小化：只保留“决策、边界、门禁、回滚”四类信息，过程叙事与会议纪要外置。
+- 防过期优先：运行态状态、周节奏与里程碑进度必须写入同步记录，不写入高权重真源正文。
 
 ## 3. 高权重真源列表（Authority Map）
 
 L0（治理主真源）：
 
-- `docs/01-control-plane/control-plane-handbook.md`（本手册）
+- `docs/control-plane/control-plane-handbook.md`（本手册）
 
 L1（控制面规则真源）：
 
-- `docs/01-control-plane/ai-native-governance.md`
-- `docs/01-control-plane/mvp-scope.md`
-- `docs/02-workflow/spec-issue-test-flow.md`
-- `docs/02-workflow/release-strategy.md`
+- `docs/control-plane/ai-native-governance.md`
+- `docs/control-plane/mvp-scope.md`
+- `docs/workflow/spec-issue-test-flow.md`
+- `docs/workflow/release-strategy.md`
 
 L2（约束执行与验证真源）：
 
-- `docs/02-workflow/task-release-and-sync-sop.md`
-- `docs/02-workflow/pr-review-sop.md`
-- `docs/03-harness/harness-closed-loop.md`
+- `docs/workflow/task-release-and-sync-sop.md`
+- `docs/workflow/pr-review-sop.md`
+- `docs/harness/harness-closed-loop.md`
 
 OpenSpec（治理变更准入真源）：
 

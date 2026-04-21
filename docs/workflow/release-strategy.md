@@ -54,6 +54,21 @@
 - 回滚方案已明确
 - dashboard / progress sync 已回写
 
+## 发布标签约定（GitHub Labels）
+
+发布清单中的 Issue / PR 应具备以下稳定标签类别：
+
+- `level:*`（变更级别）
+- `freeze:*`（冻结状态）
+- `status:*`（执行状态）
+- `release:*`（候选/已发布状态）
+
+说明：
+
+- 标签用于发布面板筛选与同步，不替代门禁判断。
+- 实际是否可发，仍以 smoke、风险、回滚、BLOCKER 清零为准。
+- 具体阶段/批次标签（例如 week/phase）属于运行态配置，在 `docs/runtime/` 维护，不在稳定策略中写死。
+
 ## 对现有大 PR 的处理
 
 如果仓库中存在 `develop -> main` 的超大草稿 PR，而既定策略又不走 `main` 发版：

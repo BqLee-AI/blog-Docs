@@ -2,7 +2,7 @@
 
 ## 审核依据（强制）
 
-- 合并门禁真源：`docs/02-workflow/pr-merge-gate-spec.md`
+- 合并门禁真源：`docs/workflow/pr-merge-gate-spec.md`
 - 审核结论必须基于门禁项与验证证据，不基于阶段判断。
 
 ## 审核标签体系
