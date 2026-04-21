@@ -10,7 +10,7 @@
 
 | Priority | Repo | Issue | Why now | Status |
 |----------|------|-------|---------|--------|
-| P0 | blog-BE | # | | ready |
+| P0 | blog-BE | [BqLee-AI/blog-BE#39](https://github.com/BqLee-AI/blog-BE/issues/39) | 违反 fe-be-adoption-gate 第 3 条门禁，AGENTS.md 缺失 | ready |
 | P0 | blog-FE | # | | blocked |
 
 字段说明：
