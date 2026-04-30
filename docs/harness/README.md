@@ -12,6 +12,7 @@
 |------|------|
 | `harness-closed-loop.md` | Harness 四步闭环：执行 → 观察 → 验证 → 收敛 |
 | `harness-gate-baseline.md` | 合并门禁 + 发版门禁基线，含例外规则 |
+| `phase-1-mvp-harness.md` | Phase 1 MVP 验收清单：FE/BE/Contract/Smoke/Evidence |
 
 ## 和其他目录的关系
 
