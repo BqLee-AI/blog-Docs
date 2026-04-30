@@ -10,8 +10,11 @@
 
 | Priority | Repo | Issue | Why now | Status |
 |----------|------|-------|---------|--------|
-| P0 | blog-BE | [BqLee-AI/blog-BE#39](https://github.com/BqLee-AI/blog-BE/issues/39) | 违反 fe-be-adoption-gate 第 3 条门禁，AGENTS.md 缺失 | ready |
-| P0 | blog-FE | # | | blocked |
+| P0 | blog-Docs | [BqLee-AI/blog-Docs#44](https://github.com/BqLee-AI/blog-Docs/issues/44) | 需先冻结 Phase Roadmap 与 MVP Scope，避免阶段边界反复变动 | verify |
+| P0 | blog-Docs | [BqLee-AI/blog-Docs#48](https://github.com/BqLee-AI/blog-Docs/issues/48) | 需把 Phase 1 当前运行态从模板落成可执行面板，作为并行协作入口 | verify |
+| P0 | blog-Docs | [BqLee-AI/blog-Docs#47](https://github.com/BqLee-AI/blog-Docs/issues/47) | 需建立 Phase 1 Harness 与验收标准，统一验证口径 | verify |
+| P1 | blog-Docs | [BqLee-AI/blog-Docs#46](https://github.com/BqLee-AI/blog-Docs/issues/46) | 需识别 auth/articles OpenAPI 差异，避免 FE/BE 与契约偏移积累 | verify |
+| P1 | blog-Docs | [BqLee-AI/blog-Docs#45](https://github.com/BqLee-AI/blog-Docs/issues/45) | 需对齐文档仓库入口与引用关系，降低 Agent 取错真源风险 | verify |
 
 字段说明：
 

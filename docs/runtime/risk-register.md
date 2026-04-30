@@ -12,7 +12,9 @@
 
 | Level | Risk | Impact | Owner | Mitigation | Trigger | Status |
 |-------|------|--------|-------|------------|---------|--------|
-| P0 | | | | | | open |
+| P0 | Phase 1 范围漂移（把评论/上传/搜索等 Phase 2+ 能力拉回当前迭代） | 直接稀释认证与文章主链路交付，导致 Phase 1 无法按时闭环 | Docs Owner / PM | 以 OpenSpec Phase 1 口径与 `mvp-scope` 作为下发真源；超界需求转入后续 Issue 并标记 deferred | 任一 P1 Issue/PR 新增评论、上传、搜索、reCAPTCHA 等能力实现或验收项 | mitigating |
+| P1 | FE 核心链路存在 mock 残留 | 验收通过但线上不可用，回归与排障成本升高 | FE Owner | 在 Phase 1 harness 中把去 mock 作为硬门禁；提交证据需包含真实 API 返回与端到端页面行为 | 验收证据无法给出真实请求/响应，或发现页面关键路径仍使用本地 mock 数据 | open |
+| P1 | Auth/Articles OpenAPI 差异持续累积 | FE/BE 集成反复返工，测试用例与契约基线失配 | BE Owner / API Owner | 按 Issue #46 建立差异清单并逐项回写处理状态；以 `contracts/api/openapi.yaml` 为唯一契约真源 | 新增/变更接口在 FE 调用、BE 返回、OpenAPI 三者中出现任一不一致且未登记 | open |
 
 字段说明：
 
