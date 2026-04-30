@@ -25,8 +25,17 @@
 
 分层约束：
 
-- `01-04` 为固定层（高权重规则），不得写高时效状态叙事
-- `05-runtime` 为运行层（可高频更新），不得改写固定层规则
+- `docs/control-plane`、`docs/workflow`、`docs/harness`、`docs/standards` 为固定层（高权重规则），不得写高时效状态叙事
+- `docs/runtime` 为运行层（可高频更新），不得改写固定层规则
+
+## 3.1) Phase 1 读取顺序（必遵守）
+
+1. `docs/control-plane/phase-roadmap.md`（先确认阶段边界）
+2. `docs/control-plane/mvp-scope.md`（再确认 Phase 1 冻结范围）
+3. `docs/runtime/phase-current.md`（确认当前阶段状态与 DoD）
+4. `docs/runtime/issue-dispatch.md`（确认当前任务入口与状态）
+5. `docs/harness/phase-1-mvp-harness.md`（确认验收与证据口径）
+6. `docs/runtime/openapi-gap-register.md`（确认 auth/articles 契约差异入口）
 
 ## 4) 任务执行原则（AI Native）
 
@@ -39,6 +48,8 @@
 - 每个规范变更要包含：动机、影响范围、迁移步骤
 - 每个流程变更要包含：失败回滚路径
 - 每个模板变更要包含：至少一个使用示例
+- PR 必须按 Issue 或职责边界原子化；不得用一个大 PR 同时承载多个可独立评审的控制面任务。
+- 如果多个 PR 存在依赖关系，优先使用 stacked PR，并在 PR 描述中写明 base/head 与前置依赖。
 
 文档淘汰与迁移规则：
 
@@ -48,9 +59,15 @@
 
 ## 6) 与 FE/BE 仓库协作
 
-- 对 `blog-FE`、`blog-BE` 的规则调整，必须在本仓库先更新规范
-- 规则更新后，再通过 Issue 链接通知各仓库执行
-- 同步频率：至少每周一次执行状态回写
+- 本仓库任务默认不直接修改 `blog-FE`、`blog-BE` 代码或其仓库文件。
+- 对 `blog-FE`、`blog-BE` 的规则调整，必须在本仓库先更新规范，再通过 Issue 下发。
+- 规则更新后，再通过 Issue 链接通知各仓库执行。
+- 同步频率：至少每周一次执行状态回写。
+
+范围变更要求：
+
+- 任何 Phase 边界、MVP 范围、契约语义变更，必须先走 OpenSpec change。
+- OpenSpec 变更未确认前，不得直接改写固定层范围定义。
 
 ## 7) 交付定义（DoD）
 

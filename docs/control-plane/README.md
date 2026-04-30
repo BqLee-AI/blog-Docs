@@ -12,7 +12,8 @@
 |------|------|------|
 | `control-plane-handbook.md` | 治理主真源，定义 durable rules 和冻结边界 | L0 |
 | `ai-native-governance.md` | 三层控制面总则（Prompt/Context/Harness） | L1 |
-| `mvp-scope.md` | MVP 范围冻结（当前为模板，待填入真实内容） | L1 |
+| `phase-roadmap.md` | 阶段路线图（Phase 0-4 边界） | L1 |
+| `mvp-scope.md` | Phase 1 MVP 范围冻结（必须做/不做/完成判定） | L1 |
 
 ## 和其他目录的关系
 
