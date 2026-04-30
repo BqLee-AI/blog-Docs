@@ -2,6 +2,22 @@
 
 BqLee-AI 项目的**控制面仓库**——指导 `blog-FE` 和 `blog-BE` 的工程标准与推进节奏。
 
+## Phase 1 当前入口（先看这里）
+
+- 固定层（阶段边界）：
+  - `docs/control-plane/phase-roadmap.md`
+  - `docs/control-plane/mvp-scope.md`
+- 运行层（当前状态与任务）：
+  - `docs/runtime/phase-current.md`
+  - `docs/runtime/issue-dispatch.md`
+  - `docs/runtime/risk-register.md`
+- Harness（Phase 1 验收口径）：
+  - `docs/harness/phase-1-mvp-harness.md`
+- OpenAPI gap（auth/articles 差异台账）：
+  - `docs/runtime/openapi-gap-register.md`
+
+当前阶段优先完成 `blog-Docs` 控制面整理与对齐；`blog-FE` / `blog-BE` 的实现类 Issue 以后续下发为准。
+
 ## 核心工作流
 
 ```
@@ -18,7 +34,7 @@ AI 帮忙收成决策 → 冻结到 spec / 契约
 准备下一个聚焦讨论
 ```
 
-完整示例见 [`docs/runtime/workflow-example.md`](docs/runtime/workflow-example.md)
+完整示例见 [`docs/workflow/workflow-example.md`](docs/workflow/workflow-example.md)
 
 ## 目录结构
 
@@ -30,7 +46,8 @@ AI 帮忙收成决策 → 冻结到 spec / 契约
 │   │   ├── README.md
 │   │   ├── control-plane-handbook.md  # L0 治理主真源
 │   │   ├── ai-native-governance.md    # L1 三层控制面总则
-│   │   └── mvp-scope.md               # L1 MVP 范围冻结
+│   │   ├── phase-roadmap.md           # L1 长周期阶段边界
+│   │   └── mvp-scope.md               # L1 Phase 1 范围冻结
 │   ├── workflow/                      ← 规则：怎么推进任务、审核 PR、发版
 │   │   ├── spec-issue-test-flow.md
 │   │   ├── change-intake-and-escalation.md
@@ -44,7 +61,8 @@ AI 帮忙收成决策 → 冻结到 spec / 契约
 │   ├── harness/                       ← 验收：怎么验证是否合规
 │   │   ├── README.md
 │   │   ├── harness-closed-loop.md     # Harness 四步闭环
-│   │   └── harness-gate-baseline.md   # 合并门禁 + 发版门禁
+│   │   ├── harness-gate-baseline.md   # 合并门禁 + 发版门禁
+│   │   └── phase-1-mvp-harness.md     # Phase 1 验收口径
 │   ├── standards/                     ← 标准：怎么写 AGENTS / 仓库怎么接入
 │   │   ├── agents-md-standard.md
 │   │   └── fe-be-adoption-gate.md
@@ -52,7 +70,8 @@ AI 帮忙收成决策 → 冻结到 spec / 契约
 │       ├── README.md
 │       ├── phase-current.md           # 当前阶段定义
 │       ├── issue-dispatch.md          # 本阶段 Issue 清单
-│       └── risk-register.md           # 风险台账
+│       ├── risk-register.md           # 风险台账
+│       └── openapi-gap-register.md    # auth/articles 契约差异台账
 ├── openspec/                          ← OpenSpec 变更管理
 │   ├── config.yaml
 │   ├── specs/                         # L0 冻结 spec
@@ -99,13 +118,11 @@ AI 帮忙收成决策 → 冻结到 spec / 契约
 - 发版以 `develop` 的冻结 commit 为准，通过 `tag` 或 `release/*` 分支完成
 - 时间敏感状态不应写入高权重规则正文，应放在 `docs/runtime/`
 
-## 快速开始
+## Phase 1 快速开始
 
 1. 先读 `AGENTS.md`
-2. 确认 `docs/control-plane/mvp-scope.md` 的范围冻结规则
-3. 按 `templates/spec-template.md` 写功能 Spec
-4. 按 `templates/issue-template.md` 拆 Issue
-5. 开发完成后按 `templates/harness-checklist.md` 验证
-6. PR 按 `templates/pr-template.md` 填写证据
-7. 发版前核对 `docs/workflow/release-strategy.md`
-8. 运行态信息写入 `docs/runtime/`，不要改写高权重规则正文
+2. 依次阅读 `docs/control-plane/phase-roadmap.md` → `docs/control-plane/mvp-scope.md`
+3. 读取 `docs/runtime/phase-current.md` 与 `docs/runtime/issue-dispatch.md`
+4. 需要验收口径时读取 `docs/harness/phase-1-mvp-harness.md`
+5. 需要契约差异入口时读取 `docs/runtime/openapi-gap-register.md`
+6. 范围变化先走 OpenSpec，再改固定层文档

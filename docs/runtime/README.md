@@ -36,6 +36,7 @@
 - `phase-current.md`：当前阶段定义（目标 / 非目标 / DoD / Harness 重点）
 - `issue-dispatch.md`：本阶段 Issue 下发与跟踪清单
 - `risk-register.md`：本阶段风险台账
+- `openapi-gap-register.md`：Phase 1 auth/articles 契约差异台账与后续收敛入口
 
 ## 运行态标签约定
 
