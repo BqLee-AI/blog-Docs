@@ -19,7 +19,7 @@
 - `docs/control-plane`: 为什么这样治理
 - `docs/workflow`: 怎么推进任务和同步进度
 - `docs/harness`: 怎么做验证闭环
-- `docs/standards`: 怎么写与维护 AGENTS/Rules
+- `docs/standards`: 怎么写与维护 Agent 规范、命名、模板、落点和接入门禁
 - `docs/runtime`: 项目运行态信息（阶段推进、下发清单、当期 DoD、风险台账）
 - `templates/`: 可直接复用的模板
 
@@ -42,6 +42,8 @@
 - Prompt 层：任务目标、范围、验收标准必须明确
 - Context 层：只加载高权重且最新材料，避免历史污染
 - Harness 层：每次任务必须留下可验证证据
+- 默认语言：Issue、PR、文档正文默认中文；路径、命令、API 字段、operationId、包名、分支名保留英文。
+- 标题格式：Issue/PR/commit 标题必须描述结果，优先使用 `type(scope): 中文结果描述`，不得使用 `update docs`、`fix stuff` 等泛化标题。
 
 ## 5) 变更准入规则
 
@@ -50,6 +52,8 @@
 - 每个模板变更要包含：至少一个使用示例
 - PR 必须按 Issue 或职责边界原子化；不得用一个大 PR 同时承载多个可独立评审的控制面任务。
 - 如果多个 PR 存在依赖关系，优先使用 stacked PR，并在 PR 描述中写明 base/head 与前置依赖。
+- Issue / PR / Spec / Harness 必须优先使用 `templates/` 下的对应模板，并在正文保留工作流入口、真源、验收和回写字段。
+- 实际 Issue / PR 正文不得保留 `# Issue 模板`、`# PR 模板` 等模板标题。
 
 文档淘汰与迁移规则：
 
@@ -77,3 +81,13 @@
 - 有可验证检查项（不是主观描述）
 - 有关联对象（FE/BE Issue 或 PR）
 - 有回写入口（进度同步文档）
+
+## 8) Standards 快速入口
+
+- Agent 工作规范：`docs/standards/agent-working-standard.md`
+- 命名规范：`docs/standards/naming-standard.md`
+- 文档落点规范：`docs/standards/document-placement-standard.md`
+- 模板编写规范：`docs/standards/template-authoring-standard.md`
+- AGENTS 编写标准：`docs/standards/agents-md-standard.md`
+- Spec 编写标准：`docs/standards/spec-writing-standard.md`
+- FE/BE 接入门禁：`docs/standards/fe-be-adoption-gate.md`

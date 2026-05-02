@@ -20,10 +20,11 @@ context: |
   - Harness layer: require verifiable evidence before merge or release.
 
   Repository structure:
-  - docs/01-control-plane: governance and stable scope/boundary rules
-  - docs/02-workflow: issue/spec/release/sync SOPs
-  - docs/03-harness: validation and orchestration loop
-  - docs/04-standards: writing and agent standards
+  - docs/control-plane: governance and stable scope/boundary rules
+  - docs/workflow: issue/spec/release/sync SOPs
+  - docs/harness: validation and orchestration loop
+  - docs/standards: writing, agent, naming, template, and adoption standards
+  - docs/runtime: current phase status, issue dispatch, risks, and gap registers
   - templates/: reusable execution templates
 
   Stable engineering rules:

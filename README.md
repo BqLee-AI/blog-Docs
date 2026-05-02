@@ -63,9 +63,14 @@ AI 帮忙收成决策 → 冻结到 spec / 契约
 │   │   ├── harness-closed-loop.md     # Harness 四步闭环
 │   │   ├── harness-gate-baseline.md   # 合并门禁 + 发版门禁
 │   │   └── phase-1-mvp-harness.md     # Phase 1 验收口径
-│   ├── standards/                     ← 标准：怎么写 AGENTS / 仓库怎么接入
+│   ├── standards/                     ← 标准：Agent 怎么工作、命名、落点、模板、接入门禁
+│   │   ├── agent-working-standard.md
 │   │   ├── agents-md-standard.md
-│   │   └── fe-be-adoption-gate.md
+│   │   ├── document-placement-standard.md
+│   │   ├── fe-be-adoption-gate.md
+│   │   ├── naming-standard.md
+│   │   ├── spec-writing-standard.md
+│   │   └── template-authoring-standard.md
 │   └── runtime/                       ← 运行态：当前阶段、Issue 下发、风险台账（可高频更新）
 │       ├── README.md
 │       ├── phase-current.md           # 当前阶段定义
@@ -126,3 +131,14 @@ AI 帮忙收成决策 → 冻结到 spec / 契约
 4. 需要验收口径时读取 `docs/harness/phase-1-mvp-harness.md`
 5. 需要契约差异入口时读取 `docs/runtime/openapi-gap-register.md`
 6. 范围变化先走 OpenSpec，再改固定层文档
+
+## Agent 与模板入口
+
+- Agent 工作规范：`docs/standards/agent-working-standard.md`
+- 命名规范：`docs/standards/naming-standard.md`
+- 文档落点规范：`docs/standards/document-placement-standard.md`
+- 模板编写规范：`docs/standards/template-authoring-standard.md`
+- Issue 模板：`templates/issue-template.md`
+- PR 模板：`templates/pr-template.md`
+- Spec 模板：`templates/spec-template.md`
+- Harness 清单：`templates/harness-checklist.md`
