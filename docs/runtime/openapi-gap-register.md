@@ -1,19 +1,30 @@
-# OpenAPI Gap Register（Phase 1 / auth + articles）
+# OpenAPI Gap Register（Phase 1 / Auth + Articles）
 
-> 范围约束：仅记录 Phase 1 MVP（账号认证 + 文章读写）差异；不包含评论、上传、搜索等 Phase 1 外能力。
+> 范围约束：仅记录 Phase 1 MVP（账号认证 + 文章读写）必需差异；评论、上传、搜索等能力不作为当前 MVP 完成条件。
+>
+> 当前策略：本 change 先登记 OpenAPI 差异和责任 issue；完整 OpenAPI 大修拆到后续 OpenSpec change。
 
-| Area | Endpoint | Gap | Source | Impact | Follow-up |
+## MVP 阻塞 Gap
+
+| Area | Endpoint / Path | 当前差异 | 影响 | Owner Issue | Status |
 |---|---|---|---|---|---|
-| auth | `POST /auth/sendcode` | FE 解析 `data.message`，但 BE 返回 `message` 在 envelope 顶层，`data` 仅有 `retry_after_seconds`；OpenAPI 也未定义 `data.message`。 | OpenAPI: `contracts/api/openapi.yaml` (`/auth/sendcode`); FE: `blog-FE/src/api/auth.ts` `sendVerificationCode`; BE: `blog-BE/src/handler/auth_handler.go` `SendVerificationCodeHandler` | FE 可能把成功响应误判为格式错误，注册链路首步不稳定。 | 在契约任务中统一 sendcode success payload（保持 envelope 一致），并修正 FE 解析逻辑仅消费顶层 `message` + `data.retry_after_seconds`。 |
-| auth | `POST /auth/register` | OpenAPI `RegisterRequest` 要求 `code` 且未定义 `registration_token`；BE 已支持 `registration_token` 优先、`code` 兼容回退。 | OpenAPI: `components.schemas.RegisterRequest`; BE: `blog-BE/src/handler/handler.go` `registerRequest`/`verificationCredential`; BE test: `blog-BE/src/handler/handler_test.go` | 契约无法表达现网两条注册凭证路径，FE/测试生成类型会丢失 token 流程。 | 后续在 auth 契约任务中把 register 凭证定义为兼容模型（`registration_token` 主路径 + `code` 兼容策略），并补充迁移说明。 |
-| auth | `POST /auth/register` | OpenAPI 对 `400` 仅写“请求参数无效或验证码错误”，未覆盖 BE 已返回的细分错误码（如 `REGISTRATION_TOKEN_*`、`VERIFICATION_CODE_*`、`PASSWORD_TOO_LONG` 等）。 | OpenAPI: `/auth/register` responses; BE: `blog-BE/src/handler/handler.go` `RegisterHandler` | FE 无法基于契约稳定映射可恢复错误，导致用户提示和重试策略不一致。 | 在契约中为 register 补充错误码清单与语义分组（参数/验证码/注册令牌/系统错误）。 |
-| auth | `POST /auth/login` | OpenAPI 仅定义 `400/401`，BE 还会返回 `500 + TOKEN_GENERATION_FAILED`。 | OpenAPI: `/auth/login`; BE: `blog-BE/src/handler/handler.go` `LoginHandler` | 运行时错误不在契约，客户端和测试用例覆盖不足。 | 在契约任务补齐 `500` 响应及错误码；FE 错误映射补齐非 4xx 登录失败场景。 |
-| auth | `POST /auth/refresh` | OpenAPI 描述支持 body（json/form）与 header Bearer；BE 实现只读取 `PostForm("refresh_token")` 或 `Authorization`，不会解析 JSON body。 | OpenAPI: `/auth/refresh` requestBody; BE: `blog-BE/src/handler/handler.go` `RefreshTokenHandler` | 按契约发送 JSON body 的客户端会被误判 `TOKEN_MISSING`。 | 在契约任务二选一：要么 BE 增加 JSON 解析，要么收紧 OpenAPI 为 form/header。 |
-| auth | `GET /auth/me` | OpenAPI `MeResponse` 未声明 `email`；BE 当前也未返回 `email`，但 FE `AuthUser` 构建依赖 email（登录/注册后可得，`me` 不可补全）。 | OpenAPI: `components.schemas.MeResponse`; FE: `blog-FE/src/api/auth.ts`; BE: `blog-BE/src/handler/handler.go` `MeHandler` | 会限制 FE 用 `me` 作为会话恢复真源，用户信息一致性不足。 | 在 auth 契约任务中明确 `me` 的最小用户字段策略（是否返回 `email`），并与 FE 会话恢复路径对齐。 |
-| auth | `POST /auth/sendcode` + `POST /auth/register` | 当前注册实际链路包含 `verify-email -> registration_token -> register`，但 OpenAPI 未暴露 `POST /auth/verify-email`，导致 `registration_token` 来源缺口。 | BE router: `blog-BE/src/routers/router.go`; BE handler: `blog-BE/src/handler/auth_handler.go` `VerifyEmailHandler`; OpenAPI paths | 契约无法独立闭环描述 token 化注册流程，跨端实现只能靠代码约定。 | 在后续 auth 契约任务明确：补入 `verify-email` 端点，或将 `registration_token` 标记为内部/过渡能力并给出替代流程。 |
-| auth | auth 全端点 | OpenAPI 仅抽象了 envelope 结构，未按端点明确 `data` 具体字段（如 sendcode cooldown、register user_id、refresh token pair 的固定层级），FE 因此实现了多分支“宽松解包”。 | OpenAPI: `components.schemas.ApiResponse` + auth paths; FE: `blog-FE/src/api/auth.ts` `unwrapResponse`/`resolveAuthTokens` | FE 需维护大量兼容分支，增加错误处理复杂度和回归风险。 | 在契约任务中细化 auth 每个成功响应的 `data` schema，减少 FE 容错分支。 |
-| articles | `GET /articles` | FE 已发送 `keyword`、`sort_by`，OpenAPI 未定义，BE 查询 DTO 也不支持。 | FE: `blog-FE/src/api/article.ts` `ArticleListParams`; OpenAPI: `/articles` parameters; BE DTO: `blog-BE/src/models/request/article.go` `ArticleListReq` | 列表筛选/排序行为与客户端预期不一致，查询参数被静默忽略。 | 在 articles 契约任务明确 Phase 1 是否纳入 `keyword/sort_by`；若纳入则同步 BE 查询与 OpenAPI。 |
-| articles | `GET /articles` | 分页字段缺口：OpenAPI `ArticleListData` 未定义 `total_pages`/`pagination`，FE 已消费 `total_pages` 并在缺失时本地推导。 | OpenAPI: `components.schemas.ArticleListData`; FE: `blog-FE/src/api/article.ts` `ArticleListResponse` | 分页展示规则依赖 FE 推导，可能与服务端统计不一致。 | 在契约任务明确分页标准字段（至少 `total/page/page_size/total_pages`），并统一 FE/BE 输出。 |
-| articles | `GET /articles` + `GET /articles/{id}` | 权限语义未完全可执行：OpenAPI文字描述了草稿可见性，但未精确定义未认证携带无效 token、普通用户请求他人草稿等场景；BE 当前对无效 token按游客处理、详情未授权返回 404。 | OpenAPI: `/articles` status 描述、`/articles/{id}` 200/404 描述; BE: `blog-BE/src/handler/article_handler.go` `getOptionalArticleClaims`/`canReadUnpublishedArticle` | FE 与测试难以判断“未找到”与“无权访问”边界，回归验证不稳定。 | 在契约任务补充权限判定表（游客/作者/管理员 + token 状态 + article status）并固定返回语义。 |
-| articles | article 全端点 | 响应 envelope 虽统一为 `{message,data,requestId,code}`，但 OpenAPI 对 `PUT/DELETE /articles/{id}` 的 `data` 约束为通用 `ApiResponse`，未明确为 `null`，FE 侧只能假设无 payload。 | OpenAPI: `/articles/{id}` put/delete; BE: `blog-BE/src/handler/article_handler.go` `UpdateArticle`/`DeleteArticle`; FE: `blog-FE/src/api/article.ts` | 类型生成后仍需手工约定空数据语义，影响契约强度。 | 在契约任务将 mutation 成功响应收敛为显式空数据 schema（如 `data: null`）或标准回执对象。 |
+| Auth | `POST /api/v1/auth/sendcode` | BE 成功响应为 envelope 顶层 `message` + `data.retry_after_seconds`；FE 当前期望 `data.message`。 | FE 会把成功响应误判为格式错误，注册链路首步不稳定。 | FE [#58](https://github.com/BqLee-AI/blog-FE/issues/58), BE [#41](https://github.com/BqLee-AI/blog-BE/issues/41) | open |
+| Auth | `POST /api/v1/auth/register` | BE 当前返回 `user_id`，FE 形成有 `user` 但无 `accessToken` 的半登录；OpenAPI 对注册后会话语义未明确。 | 用户注册后无法稳定进入受保护创作路径。 | FE [#58](https://github.com/BqLee-AI/blog-FE/issues/58), BE [#41](https://github.com/BqLee-AI/blog-BE/issues/41) | open |
+| Auth | `GET /api/v1/auth/me` / FE `/account` | FE `/account` 调 `/api/v1/users/profile`，BE 当前无该接口；MVP 当前用户恢复应对齐 `/auth/me` 或移出主路径。 | 登录刷新和账户页会话恢复不稳定。 | FE [#58](https://github.com/BqLee-AI/blog-FE/issues/58), BE [#41](https://github.com/BqLee-AI/blog-BE/issues/41) | open |
+| Articles | `GET /api/v1/articles` | 首页已使用真实 API；`/articles` 仍依赖 FE `mockPosts`；OpenAPI/实现需保护 published 列表最小字段。 | 游客文章列表验收不能作为真实证据。 | FE [#59](https://github.com/BqLee-AI/blog-FE/issues/59), BE [#42](https://github.com/BqLee-AI/blog-BE/issues/42) | open |
+| Articles | `POST/PUT/DELETE /api/v1/articles` | BE API 已可写读，但 FE 写作路径在 admin 路由下且 payload/状态需要与真实 API 对齐。 | 普通用户无法体验创建、编辑、删除、发布自己的文章。 | FE [#60](https://github.com/BqLee-AI/blog-FE/issues/60), FE [#64](https://github.com/BqLee-AI/blog-FE/issues/64), BE [#42](https://github.com/BqLee-AI/blog-BE/issues/42) | open |
+| Articles | `GET /api/v1/articles` + `GET /api/v1/articles/{id}` | 草稿/发布可见性需要以游客/作者视角形成测试和契约说明；无权访问/未找到语义需要可复核。 | 草稿可能被误认为公开，或 FE/BE 对 404/403 语义理解不一致。 | FE [#64](https://github.com/BqLee-AI/blog-FE/issues/64), BE [#42](https://github.com/BqLee-AI/blog-BE/issues/42) | open |
 
+## Deferred Gap
+
+| Area | Endpoint / Path | 当前结论 | 后续入口 |
+|---|---|---|---|
+| Search | `GET /api/v1/articles?keyword=&sort_by=` | keyword/sort_by/total_pages 属于列表增强，不阻塞当前 MVP；BE [#11](https://github.com/BqLee-AI/blog-BE/issues/11) 与 PR [#37](https://github.com/BqLee-AI/blog-BE/pull/37) 已标记 Post-MVP / deferred。 | 搜索/列表增强 OpenSpec |
+| Upload | `POST /api/v1/upload` | 图片上传不属于当前 MVP，旧 FE/BE 单体 issue 已关闭，保留 deferred 包装入口。 | FE [#38](https://github.com/BqLee-AI/blog-FE/issues/38), BE [#25](https://github.com/BqLee-AI/blog-BE/issues/25) |
+| Comments | comments API | 评论不属于当前 MVP，旧 FE/BE 单体 issue 已关闭，保留 deferred 包装入口。 | FE [#38](https://github.com/BqLee-AI/blog-FE/issues/38), BE [#25](https://github.com/BqLee-AI/blog-BE/issues/25) |
+
+## 回写规则
+
+- FE/BE PR 若发现新的 Auth/Articles 契约差异，必须评论回写到 [Docs #70](https://github.com/BqLee-AI/blog-Docs/issues/70) 或更新本文件。
+- 若差异改变 scope、contract、harness 或 gate，必须先走新的 OpenSpec change。
+- 完整 `contracts/api/openapi.yaml` 大修不在本 issue 中完成。
