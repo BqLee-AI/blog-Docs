@@ -1,3 +1,6 @@
+## 任务一句话
+一句话说明这张 Issue 最终要交付什么结果。
+
 ## 工作流入口
 - Issue 模板参考：`templates/issue-template.md`
 - PR 模板参考：`templates/pr-template.md`
@@ -12,11 +15,16 @@
 - 为什么是现在：
 - 明确不做：
 
+## 当前证据
+- 已观察到的问题：
+- 已存在的实现：
+- 参考 PR / Issue / 验证记录：
+
 ## 输入真源（Agent 接任务时只加载这些）
-- Spec:
-- Contract/Rule:
-- OpenSpec change（如适用）:
-- Runtime 状态（如适用）:
+- Spec / OpenSpec：
+- Contract / Rule：
+- Runtime 状态：
+- 代码入口：
 
 ## 变更分级
 - [ ] L0 可直接执行（不扩边界、不改契约）
@@ -27,6 +35,11 @@
 - 只允许修改：
 - 禁止修改：
 - 依赖前置条件：
+
+## 执行要求
+- [ ]
+- [ ]
+- [ ]
 
 ## 验收标准（DoD）
 - [ ]
@@ -41,6 +54,7 @@
 ## 回写目标
 - Runtime 回写：
 - 风险回写：
+- 契约 / gap 回写：
 - 经验/规则回写：
 
 ## 关联

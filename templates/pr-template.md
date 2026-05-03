@@ -6,18 +6,23 @@
 - 命名与标题规范：`docs/standards/naming-standard.md`
 - 回写落点规范：`docs/standards/document-placement-standard.md`
 
+## 关联 Issue
+Closes #
+
 ## 决策上下文
 - 为什么做：
 - 为什么是现在：
 - 明确不做：
 
 ## 变更摘要
+- 
+- 
 
 ## 关联真源
 - Issue:
-- Spec:
-- Contract/Rule:
-- 验收标准在：
+- Spec / OpenSpec:
+- Contract / Rule:
+- Harness / 验收标准:
 
 ## 发布标签
 - Level: `l0-direct` / `l1-openspec` / `l2-blocker`
@@ -27,13 +32,14 @@
 ## 原子 PR 边界
 - 本 PR 只解决：
 - 明确不包含：
-- 如有前置/后续 PR：
+- 前置 / 后续 PR：
 
 ## 冻结边界检查
 - [ ] 只修改授权范围内文件
 - [ ] 未引入范围外功能
-- [ ] 未破坏既定契约
-- [ ] 如涉及契约变更，已先更新文档真源
+- [ ] 未混入其他 Issue
+- [ ] 如涉及契约变更，已更新契约，或已登记 gap 并关联后续 Issue
+- [ ] 如涉及长期规则，已确认不包含阶段目标
 
 ## 内容验证
 - 变更文件在正确分层目录内：
@@ -46,6 +52,7 @@
 - 命令或人工步骤：
 - 结果：
 - 证据位置：
+- 失败是否阻断：
 
 ## 风险与回滚
 - 风险:
@@ -55,3 +62,4 @@
 - [ ] 已更新必要文档（规则/模板/同步记录）
 - [ ] 如涉及 Issue 下发，已回写到 `docs/runtime/issue-dispatch.md`
 - [ ] 如涉及风险变化，已回写到 `docs/runtime/risk-register.md`
+- [ ] 如涉及契约差异，已更新契约或回写 gap
